@@ -1,32 +1,58 @@
 <img src=https://github.com/RFbkak37y3kIY/webshark/assets/1423657/e769fcbf-d83b-4d07-8e86-c9b5706ad5ee width=180>
 
-# webshark-ng
+# webshark-ui
 
-**webShark** is a *Wireshark-like* webapp powered by [sharkd](https://wiki.wireshark.org/Development/sharkd) and all its dissectors 🕵️
+_User-Interface builder for [**webShark**](https://github.com/QXIP/webshark), a *Wireshark-like* webapp_ 🕵️
 
 <img src="https://github.com/QXIP/webshark/assets/1423657/092c2544-f5db-4a79-b3da-d48df4e0813c" width=600 />
 
-> Client-Side RTP playback powered by WASM/ffmpeg 🚀
+---
 
-<br>
+## URL Parameters
 
-## Instructions
-Mount your PCAP content directory to location `/captures` and launch webshark
+This application requires a `file` parameter to open a pcap file directly. The file list page has been removed.
 
-#### Run with Compose
+### Usage
+
+**Open a file:**
 ```
-docker-compose up -d
+http://localhost:4200/?file=myfile.pcap
 ```
-#### Run Manually
+
+**Open a file in a directory:**
 ```
-docker run -ti --rm -p 8085:8085 -v $(pwd)/captures:/captures ghcr.io/qxip/webshark:latest
+http://localhost:4200/?file=directory/subdirectory/myfile.pcap
 ```
-#### Usage
-Browse to your webshark-ng instance, ie: `http://localhost:8085/webshark`
 
-<br>
+**Open a file with a default filter:**
+```
+http://localhost:4200/?file=myfile.pcap&filter=ip.src == "192.168.1.1"
+```
 
-#### Credits
-> This program is free software based on a fork of GPLv2 [webshark](https://bitbucket.org/jwzawadzki/webshark) by [Jakub Zawadzki](https://bitbucket.org/jwzawadzki) and sponsored by [qxip](https://github.com/QXIP)
+### Parameters
 
-> Dissections powered by tshark [sharkd](https://wiki.wireshark.org/Development/sharkd) from Wireshark Project. See [LICENSE](https://github.com/QXIP/node-webshark/blob/master/LICENSE) for details
+| Parameter | Description | Example |
+|-----------|-------------|---------|
+| `file` | Path to the pcap file (required) | `file=capture.pcap` |
+| `filter` | Wireshark display filter to apply | `filter=sip.Via.received == "10.0.0.1"` |
+
+---
+
+## Changes from Original
+
+- **File parameter required**: The application now requires a `file` query parameter to open a pcap file
+- **Filter parameter**: Added support for `filter` query parameter to apply a default display filter
+- **Removed file list page**: The file browser/upload page has been removed
+- **Local fonts**: Fonts (Roboto, Material Icons) are now loaded locally instead of from Google Fonts
+- **Loading screen**: Added a loading indicator that shows until data is ready
+
+---
+
+### Latest Distribution
+```
+wget github.com/qxip/webshark-ui/releases/latest/download/latest.zip
+```
+
+### License
+Released under the AGPLv3 License.<br>
+Copyright by QXIP BV, Some rights Reserved.
